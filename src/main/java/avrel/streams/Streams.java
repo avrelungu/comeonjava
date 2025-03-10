@@ -3,6 +3,7 @@ package avrel.streams;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -32,7 +33,8 @@ public class Streams {
 
         Integer[] digits2 = {1, 1, 2, 2, 3, 4};
         Stream<Integer> digitsStream2 = Arrays.stream(digits2);
-        digitsStream2.map((digit) -> Math.pow(digit, 2)).distinct().limit(3).forEach(System.out::println);
+        boolean any4s = digitsStream2.map((digit) -> Math.pow(digit, 2)).distinct().limit(3).anyMatch((digit) -> digit == 4);
+        System.out.println(any4s);
 
         String[] names = {"Aurel", "Lungu"};
         Stream<String> namesStream = Arrays.stream(names);
@@ -41,21 +43,6 @@ public class Streams {
         namesStream2.filter((name) -> name.startsWith("a")).forEach(System.out::println);
 
 
-
-
-
-        List<String> stringList = new ArrayList<String>();
-
-        stringList.add("One flew over the cuckoo's nest");
-        stringList.add("To kill a muckingbird");
-        stringList.add("Gone with the wind");
-
-        Stream<String> stream = stringList.stream();
-
-        stream.flatMap((value) -> {
-            String[] split = value.split(" ");
-            return (Stream<String>) Arrays.stream(split);
-        }).forEach(System.out::println);
 
 
         List<String> stringPeekList = new ArrayList<String>();
@@ -70,6 +57,27 @@ public class Streams {
         });
 
         streamPeeked.forEach(System.out::println);
+
+
+
+        List<String> stringList = new ArrayList<String>();
+
+        stringList.add("One flew over the cuckoo's nest");
+        stringList.add("To kill a muckingbird");
+        stringList.add("Gone with the wind");
+
+        Stream<String> stream = stringList.stream();
+
+        Optional<String> min = stream.flatMap((value) -> {
+            String[] split = value.split(" ");
+            return (Stream<String>) Arrays.stream(split);
+        }).min((String val1, String val2) -> {
+            return val1.compareTo(val2);
+        });
+
+        List<String> object = null;
+
+        System.out.println(object instanceof List<String>);
 
     }
 }
