@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class Set {
+public class SetExample {
     public static void main(String[] args) {
         // 2. Set
         java.util.Set<String> set = new HashSet<>();
